@@ -85,16 +85,25 @@ Combinado con la clasificación por LLM, funciona para Apple, Amazon y Tesla.
   en el contexto. Preferimos "no sé" a una alucinación.
 
 
+### LangGraph — grafo de decisión
+- Estado tipado con TypedDict — validación en tiempo de ejecución y autocompletado.
+- Cinco nodos en secuencia: financial_analyst, news_analyst, rag_analyst,
+  risk_analyst, synthesizer.
+- Cada nodo devuelve solo el campo que modifica — LangGraph hace merge automático.
+- risk_analyst no llama a APIs externas — razona sobre el estado existente.
+  Separar identificación de riesgos de síntesis final hace el informe más consistente.
+- synthesizer recibe riesgos como lista estructurada, no como texto libre.
+
 
 ## Pendiente
 - [x] Implementar clasificación de earnings releases con LLM
 - [x] Construir componente RAG sobre earnings releases
-- [ ] Diseñar grafo LangGraph con nodos especializados
-- [ ] Implementar nodo financial_analyst
-- [ ] Implementar nodo news_analyst
-- [ ] Implementar nodo rag_analyst
-- [ ] Implementar nodo risk_analyst
-- [ ] Implementar nodo synthesizer
+- [x] Diseñar grafo LangGraph con nodos especializados
+- [x] Implementar nodo financial_analyst
+- [x] Implementar nodo news_analyst
+- [x] Implementar nodo rag_analyst
+- [x] Implementar nodo risk_analyst
+- [x] Implementar nodo synthesizer
 - [ ] Eval framework
 - [ ] FastAPI
 - [ ] Frontend Streamlit
