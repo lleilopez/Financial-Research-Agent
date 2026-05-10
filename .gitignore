@@ -28,3 +28,6 @@ chroma_db/
 
 # Mac
 .DS_Store
+
+# Archivos temporales de prueba
+test_*.py
