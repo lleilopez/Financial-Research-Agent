@@ -65,9 +65,30 @@ tests/
 
 ---
 
+### SEC EDGAR — Tesla y nomenclatura no estándar
+**Problema:** Tesla nombra sus exhibits como `exhibit991.htm`, `exhibit9911111.htm` — 
+sin guión, sin seguir la convención estándar `ex99-1.htm`.
+Nuestra búsqueda filtraba por `"ex99"` en el href completo y no los encontraba.
+**Solución:** extraer solo el nombre del archivo y buscar tanto `"ex99"` como `"exhibit99"`.
+Combinado con la clasificación por LLM, funciona para Apple, Amazon y Tesla.
+
+
+### RAG sobre earnings releases
+- Chunks de 1.000 caracteres con 200 de solapamiento.
+- RecursiveCharacterTextSplitter — divide por párrafos primero, luego frases,
+  luego palabras. Respeta la estructura natural del texto.
+- ChromaDB persistente en disco — no reindexamos en cada ejecución.
+- Colección separada por ticker — earnings_aapl, earnings_amzn, etc.
+- n_results=4 en la query — ~4.000 caracteres de contexto, suficiente sin
+  saturar el contexto del LLM.
+- El prompt instruye explícitamente a no inventar si la respuesta no está
+  en el contexto. Preferimos "no sé" a una alucinación.
+
+
+
 ## Pendiente
-- [ ] Implementar clasificación de earnings releases con LLM
-- [ ] Construir componente RAG sobre earnings releases
+- [x] Implementar clasificación de earnings releases con LLM
+- [x] Construir componente RAG sobre earnings releases
 - [ ] Diseñar grafo LangGraph con nodos especializados
 - [ ] Implementar nodo financial_analyst
 - [ ] Implementar nodo news_analyst
