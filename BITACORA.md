@@ -95,6 +95,16 @@ Combinado con la clasificación por LLM, funciona para Apple, Amazon y Tesla.
 - synthesizer recibe riesgos como lista estructurada, no como texto libre.
 
 
+### Eval framework — LLM-as-a-judge
+- Tres dimensiones: groundedness, coherence, completeness.
+- Puntuación 1-5 con justificación por dimensión.
+- Primera versión del prompt era demasiado permisiva — daba 5/5 en todo.
+  El modelo tiene sesgo hacia validar outputs que suenan bien.
+- Solución: prompt explícitamente estricto que instruye al modelo a buscar
+  fallos, no a validar. Resultado: 3.33/5 con críticas accionables.
+- LLM-as-a-judge funciona porque entiende significado, no solo palabras.
+  Métricas como BLEU/ROUGE miden similitud textual, no calidad de razonamiento.
+
 ## Pendiente
 - [x] Implementar clasificación de earnings releases con LLM
 - [x] Construir componente RAG sobre earnings releases
@@ -104,6 +114,6 @@ Combinado con la clasificación por LLM, funciona para Apple, Amazon y Tesla.
 - [x] Implementar nodo rag_analyst
 - [x] Implementar nodo risk_analyst
 - [x] Implementar nodo synthesizer
-- [ ] Eval framework
+- [x] Eval framework
 - [ ] FastAPI
 - [ ] Frontend Streamlit
